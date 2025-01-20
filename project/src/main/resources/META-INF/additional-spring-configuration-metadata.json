@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'secret-key'"
+  },
+  {
+    "name": "another-property",
+    "type": "java.lang.Integer",
+    "description": "A description for 'another-property'"
+  },
+  {
+    "name": "spring.jpa.hibernate.naming-strategy",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibernate.naming-strategy'"
+  },
+  {
+    "name": "iamport.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'iamport.api.key'"
+  },
+  {
+    "name": "iamport.api.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'iamport.api.secret'"
+  }
+]}

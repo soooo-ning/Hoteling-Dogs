@@ -1,0 +1,12 @@
+#scrollUpIcon {
+	position: fixed;
+	bottom: 150px;
+	right: 50px;
+	display: none; /* 처음엔 버튼을 숨깁니다 */
+	width: 50px;
+	height: 50px;
+	font-size: 50px;
+	cursor: pointer;
+	z-index: 1000; /* 다른 요소들보다 위에 보이도록 설정 */
+	color: dimgray; /* 아이콘 색상을 변경 */
+}

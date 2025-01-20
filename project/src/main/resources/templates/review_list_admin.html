@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<html xmlns:th="https://www.thymeleaf.org">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" ></script>
+    <title>리뷰 목록</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>리뷰 목록 관리자</h1>
+    <ul id="reviewList">
+		<div id="review_base_admin" th:each="status: ${reviews}">
+			<div class="review_left_base"> 
+				<input type="hidden" id="user_id" name="user_id" value="2">
+				<div class="review_left_top"> 
+					<table style="width:100%;height:100px;border-collapse: collapse;">
+						<colgroup>
+					       <col span="1" style="width: 20%;">
+					       <col span="1" style="width: 80%;">
+					    </colgroup>
+						<tbody>
+							<tr>
+								<td>
+									<label for="rating" style="font-size:10pt; " >작성된 날짜:</label>
+								</td>
+								<td>
+									<input type="text" id="date1" style="width:100px ; border: none; vertical-align: middle; margin-top: 5%;" name="date1" th:value="${status.created_at}" readonly>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="content" style="font-size:10pt;">작성자:</label>
+									
+								</td>
+								<td>
+									<input type="text" id="user1" name="user1" style="width:100px; border: none; vertical-align: middle; margin-top: 5%;" th:value="${status.user_id}" readonly>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<label for="content" style="font-size:10pt;">별점:</label>
+								</td>
+								<td>
+									<div class="star-rating">
+										<input type="hidden" th:id="review_id_+${status.review_id}" th:name="review_id_+${status.review_id}" style="width:100px;" th:value="${status.review_star}">
+										<th:block th:switch="${status.review_star}">
+											<th:block th:case="5">
+												<input type="radio" th:id="${status.review_id}+_star5" th:name="${status.review_id}+_review_star" value="5" checked="checked" /><label th:for="${status.review_id}+_star5" title="5 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star4" th:name="${status.review_id}+_review_star" value="4"/><label th:for="${status.review_id}+_star4" title="4 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star3" th:name="${status.review_id}+_review_star" value="3"/><label th:for="${status.review_id}+_star3" title="3 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star2" th:name="${status.review_id}+_review_star" value="2"/><label th:for="${status.review_id}+_star2" title="2 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star1" th:name="${status.review_id}+_review_star" value="1"/><label th:for="${status.review_id}+_star1" title="1 star">&#9733;</label>
+											</th:block>
+											<th:block th:case="4">
+												<input type="radio" th:id="${status.review_id}+_star5" th:name="${status.review_id}+_review_star" value="5"/><label th:for="${status.review_id}+_star5" title="5 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star4" th:name="${status.review_id}+_review_star" value="4" checked="checked" /><label th:for="${status.review_id}+_star4" title="4 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star3" th:name="${status.review_id}+_review_star" value="3"/><label th:for="${status.review_id}+_star3" title="3 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star2" th:name="${status.review_id}+_review_star" value="2"/><label th:for="${status.review_id}+_star2" title="2 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star1" th:name="${status.review_id}+_review_star" value="1"/><label th:for="${status.review_id}+_star1" title="1 star">&#9733;</label>
+											</th:block>
+											<th:block th:case="3">
+												<input type="radio" th:id="${status.review_id}+_star5" th:name="${status.review_id}+_review_star" value="5"/><label th:for="${status.review_id}+_star5" title="5 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star4" th:name="${status.review_id}+_review_star" value="4"/><label th:for="${status.review_id}+_star4" title="4 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star3" th:name="${status.review_id}+_review_star" value="3" checked="checked" /><label th:for="${status.review_id}+_star3" title="3 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star2" th:name="${status.review_id}+_review_star" value="2"/><label th:for="${status.review_id}+_star2" title="2 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star1" th:name="${status.review_id}+_review_star" value="1"/><label th:for="${status.review_id}+_star1" title="1 star">&#9733;</label>
+											</th:block>
+											<th:block th:case="2">
+												<input type="radio" th:id="${status.review_id}+_star5" th:name="${status.review_id}+_review_star" value="5"/><label th:for="${status.review_id}+_star5" title="5 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star4" th:name="${status.review_id}+_review_star" value="4"/><label th:for="${status.review_id}+_star4" title="4 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star3" th:name="${status.review_id}+_review_star" value="3"/><label th:for="${status.review_id}+_star3" title="3 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star2" th:name="${status.review_id}+_review_star" value="2" checked="checked" /><label th:for="${status.review_id}+_star2" title="2 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star1" th:name="${status.review_id}+_review_star" value="1"/><label th:for="${status.review_id}+_star1" title="1 star">&#9733;</label>
+											</th:block>
+											<th:block th:case="1">
+												<input type="radio" th:id="${status.review_id}+_star5" th:name="${status.review_id}+_review_star" value="5"/><label th:for="${status.review_id}+_star5" title="5 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star4" th:name="${status.review_id}+_review_star" value="4"/><label th:for="${status.review_id}+_star4" title="4 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star3" th:name="${status.review_id}+_review_star" value="3"/><label th:for="${status.review_id}+_star3" title="3 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star2" th:name="${status.review_id}+_review_star" value="2"/><label th:for="${status.review_id}+_star2" title="2 stars">&#9733;</label>
+												<input type="radio" th:id="${status.review_id}+_star1" th:name="${status.review_id}+_review_star" value="1" checked="checked" /><label th:for="${status.review_id}+_star1" title="1 star">&#9733;</label>
+											</th:block>
+										</th:block>
+							        </div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="review_left_bottom"> 
+				</div>
+			</div>
+			<div class="review_right_base"> 
+				<div class="review_right_top"> 
+					<textarea id="content" name="content" rows="5" required style="margin-top:10px; width:95%;" th:text="${status.content}" readonly></textarea>
+				</div>
+				<th:block th:each="file : ${reviewFiles}">
+					<th:block th:if="${file.review.review_id == status.review_id}">
+						<div class="review_right_middle"> 
+							<a th:download="${file.review_filename}" th:href="'data:image/jpeg;base64,'+${file.review_file}">
+								<img th:src="'data:image/jpeg;base64,'+${file.review_file}" width="150px" height="150px" style="border-radius: 15px;"></a>
+						</div>
+					</th:block>
+				</th:block>
+				<div class="review_right_bottom"> 
+					<form action="/submitReviewReply" th:id="${status.review_id}+_review_reply" method="POST">
+					<table style="width:100%;height:100%;border-collapse: collapse;">
+						<colgroup>
+					       <col span="1" style="width: 85%;">
+					       <col span="1" style="width: 10%;">
+					    </colgroup>
+						<tbody>
+							<tr>
+								<td>
+									<label for="rating" style="font-size:8pt;" >호텔 답변:</label>
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="2"> 
+									<th:block th:each="reply : ${reviewReplys}">
+										<th:block th:if="${reply.review.review_id == status.review_id}">
+											<th:block th:if="${reply.reply_id != 0}">
+											<input type="hidden" th:id="${reply.reply_id}" name="reply_ids" th:value="${status.review_id}" >
+											</th:block>
+									<textarea id="reply_content" name="reply_content" rows="3" placeholder="답변 달기" required style="margin-top:10px; width:95%;" th:text="${reply.reply_content}" ></textarea>
+										</th:block>
+									</th:block>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<input type="hidden" id="review.review_id" name="review.review_id" th:value="${status.review_id}" >
+									<div style="float: right; margin-right:30px;">
+										<button id="replyBtn" th:name="${status.review_id}+_reply" type="button">답변 달기</button>
+										<button id="editBtn" type="button" style="display:none;">수정하기</button>
+										<button id="cancelBtn" type="button" style="display:none;">작성 취소</button>
+										<button id="saveBtn" th:name="${status.review_id}+_save" type="button" style="display:none;">수정 완료</button>
+										<button id="deleteBtn" th:name="${status.review_id}+_del" type="button" style="display:none;">답변 삭제</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					</form>
+				</div>
+			</div>
+			
+		</div>
+    </ul>
+	<!--<button onclick="window.location.href='/reviewForm'">리뷰 작성하기</button>-->
+	    <script src="/js/review_list.js"></script>
+		<script>
+		    document.addEventListener('DOMContentLoaded', function() {
+		        if (window.location.pathname === '/reviewListAdmin') { // 리뷰 목록 페이지의 URL 경로에 따라 수정
+		            document.querySelectorAll('.star-rating input').forEach(function(input) {
+		                input.disabled = true; // 별점 비활성화
+		            });
+		        }
+				
+				// 답변달기 버튼 이벤트 핸들러
+				document.querySelectorAll('#replyBtn').forEach(function(replyBtn) {
+				    replyBtn.addEventListener('click', function(event) {
+				        event.preventDefault(); // 폼이 바로 제출되지 않도록 방지
+				        const form = replyBtn.closest('form');
+				        const replyContent = form.querySelector('#reply_content');
+
+				        // 답변이 입력된 경우에만 수정하기 버튼이 나타나도록 설정
+				        if (replyContent.value.trim() !== '') {
+				            const editBtn = form.querySelector('#editBtn');
+				            editBtn.style.display = 'inline';
+				            editBtn.disabled = false; // 수정하기 버튼 활성화
+				            replyBtn.style.display = 'none'; // 답변달기 버튼 숨기기
+
+				            replyContent.setAttribute('readonly', true); // 답변 내용 읽기 전용으로 설정
+				        }
+				    });
+				});
+
+			// 작성 취소 버튼 이벤트 핸들러
+			document.querySelectorAll('#cancelBtn').forEach(function(cancelBtn) {
+				cancelBtn.addEventListener('click', function() {
+					const form = cancelBtn.closest('form');
+					const replyContent = form.querySelector('#reply_content');
+
+					replyContent.setAttribute('readonly', true);
+					if (replyContent.value.trim() === '') {
+						form.querySelector('#replyBtn').style.display = 'inline';
+					} else {
+						form.querySelector('#editBtn').style.display = 'inline';
+					}
+					form.querySelector('#cancelBtn').style.display = 'none';
+					form.querySelector('#saveBtn').style.display = 'none';
+					form.querySelector('#deleteBtn').style.display = 'none';
+				});
+			});
+
+			// 수정 완료 버튼 이벤트 핸들러
+			document.querySelectorAll('#saveBtn').forEach(function(saveBtn) {
+			    saveBtn.addEventListener('click', function(event) {
+			        event.preventDefault(); // 폼이 바로 제출되지 않도록 방지
+			        const form = saveBtn.closest('form');
+			        const replyContent = form.querySelector('#reply_content');
+
+			        // 답변이 입력된 경우에만 수정하기 버튼이 다시 나타나도록 설정
+			        if (replyContent.value.trim() !== '') {
+			            const editBtn = form.querySelector('#editBtn');
+			            editBtn.style.display = 'inline';
+			            editBtn.disabled = false; // 수정하기 버튼 다시 활성화
+			            form.querySelector('#replyBtn').style.display = 'none'; // 답변하기 버튼 숨기기
+			        }
+			        
+			        replyContent.setAttribute('readonly', true); // 답변 내용 읽기 전용으로 설정
+			        form.querySelector('#cancelBtn').style.display = 'none';
+			        form.querySelector('#saveBtn').style.display = 'none';
+			        form.querySelector('#deleteBtn').style.display = 'none';
+			    });
+			});
+
+			// 수정하기 버튼 이벤트 핸들러를 추가해서 수정 모드로 다시 진입할 수 있도록 설정
+			document.querySelectorAll('#editBtn').forEach(function(editBtn) {
+			    editBtn.addEventListener('click', function(event) {
+			        event.preventDefault(); // 폼이 바로 제출되지 않도록 방지
+			        const form = editBtn.closest('form');
+			        const replyContent = form.querySelector('#reply_content');
+
+			        replyContent.removeAttribute('readonly'); // 답변 내용 수정 가능하게 설정
+			        form.querySelector('#cancelBtn').style.display = 'inline';
+			        form.querySelector('#saveBtn').style.display = 'inline';
+			        form.querySelector('#deleteBtn').style.display = 'inline';
+			        editBtn.style.display = 'none'; // 수정하기 버튼 숨기기
+			    });
+			});
+
+			
+		});
+	</script>
+		
+</body>
+</html>

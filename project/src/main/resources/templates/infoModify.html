@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="|${pageName}|"></title>
+	<link rel="stylesheet" th:href="@{/css/mypage_styles.css}">
+	<link rel="stylesheet" th:href="@{/css/nav_보현.css}">
+	<link rel="stylesheet" th:href="@{/css/scroll.css}">
+	<!-- Bootstrap CSS CDN -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	<!-- Bootstrap Date Range Picker CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="header">
+<!-- 네비게이션 바 -->
+<div th:insert="~{nav :: nav}"></div>
+
+<!-- 네비게이션 바의 높이만큼 여백을 주어 콘텐츠가 네비게이션 바 아래에 위치하도록 함 -->
+	<div style="height: 60px;"></div> 
+</div>
+
+<!-- body -->
+<div class="container">
+	<div class="container-sub">
+		<h1><a th:href="@{/security-login/info}">My Page</a></h1>
+	</div>
+
+	<div class="layout">
+		<!-- Sidebar Section -->
+		<div class="sidebar">
+			<div class="profile-container">
+				<div class="profile-img"><img src="/images/profile.jpg"></div>
+				<div class="profile-info">
+					<div class="semiinfo" th:text="${user.uRole}"></div>
+					<div class="semiinfo"><span
+							th:text="${#lists.isEmpty(dogInfos) ? '애견 정보 없음' : (dogInfos[0].dogName + ' 주인님,')}"></span>
+					</div>
+					<div class="semiinfo" th:text="${user.uName} + '님'"></div>
+				</div>
+			</div>
+
+			<div class="info-main-category">
+				<div class="infomodify-category"><a th:href="@{/{loginType}/info/modify(loginType=${loginType})}">개인정보수정</a></div>
+				<div class="infomodify-category"><a th:href="@{/{loginType}/info/my-reservations(loginType=${loginType})}">나의 예약관리</a></div>
+				<div class="infomodify-category"><a th:href="@{/{loginType}/info/my-favorites(loginType=${loginType})}">나의 찜목록</a></div>
+				<div class="infomodify-category"><a th:href="@{/{loginType}/info/my-point(loginType=${loginType})}">나의 포인트관리</a></div>
+				<div class="infomodify-category"><a th:href="@{/userReviewList}">내가 쓴 리뷰확인</a></div>
+			</div>
+		</div>
+			<!-- Main Content Section -->
+			<div class="main-content">
+				<div>
+					<h2 class="info_sub">계정 정보</h2>
+					<hr />
+					<form>
+						<div class="form-group">
+							<label for="uName">이름</label>
+							<input type="text" id="uName" class="form-control" name="uName" th:value="${user.uName}"
+								readonly />
+						</div>
+						<div class="form-group">
+							<label for="uSsn">생년월일</label>
+							<input type="text" id="uSsn" class="form-control" name="uSsn" th:value="${user.uSsn}"
+								readonly />
+						</div>
+						<div class="form-group">
+							<label for="uEmail">이메일</label>
+							<input type="email" id="uEmail" class="form-control" name="uEmail" th:value="${user.uEmail}"
+								readonly />
+						</div>
+						<div class="form-group">
+							<label for="uPhoneNum">전화번호</label>
+							<input type="text" id="uPhoneNum" class="form-control" name="uPhoneNum"
+								th:value="${user.uPhoneNum}" readonly />
+						</div>
+						<a th:href="@{/security-login/info/modify-form}" class="btn btn-outline-dark">수정</a>
+					</form>
+				</div>
+				<div>
+					<h2 class="info_sub">보안 설정</h2>
+					<hr />
+					<form>
+						<div class="form-group">
+							<label for="password">비밀번호</label>
+							<input type="password" id="password" class="form-control" name="password"
+								placeholder="******" readonly />
+						</div>
+						<a th:href="@{/security-login/confirm-password}" class="btn btn-outline-dark">수정</a>
+					</form>
+				</div>
+				<div>
+					<h2>애견 정보</h2>
+					<form th:action="@{/update-dog-info}" method="post">
+						<div th:each="dogInfo, iter : ${dogInfos}">
+							<div class="dog-info-item">
+								<input type="hidden" name="dogInfos[${iter.index}].dogId" th:value="${dogInfo.dogId}" />
+								<div class="form-group">
+									<label for="dogName-${iter.index}">이름</label>
+									<input type="text" id="dogName-${iter.index}" name="dogInfos[${iter.index}].dogName"
+										th:value="${dogInfo.dogName}" readonly />
+								</div>
+								<div class="form-group">
+									<label for="dogGender-${iter.index}">성별</label>
+									<select id="dogGender-${iter.index}" name="dogInfos[${iter.index}].dogGender">
+										<option value="MALE" th:selected="${dogInfo.dogGender == 'MALE'}">남</option>
+										<option value="FEMALE" th:selected="${dogInfo.dogGender == 'FEMALE'}">여</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="dogBirth-${iter.index}">생년월일</label>
+									<input type="date" id="dogBirth-${iter.index}"
+										name="dogInfos[${iter.index}].dogBirth" th:value="${dogInfo.dogBirth}" />
+								</div>
+								<div class="form-group">
+									<label for="neutered-${iter.index}">중성화 여부</label>
+									<input type="checkbox" id="neutered-${iter.index}"
+										name="dogInfos[${iter.index}].neutered" th:checked="${dogInfo.neutered}" />
+								</div>
+								<div class="form-group">
+									<label for="additionalInfo-${iter.index}">추가정보</label>
+									<textarea id="additionalInfo-${iter.index}"
+										name="dogInfos[${iter.index}].additionalInfo"
+										th:text="${dogInfo.additionalInfo}"></textarea>
+								</div>
+							</div>
+						</div>
+						<button type="button" class="btn btn-outline-dark">추가</button>
+						<button type="button" class="btn btn-outline-dark">수정</button>
+					</form>
+				</div>
+		</div>
+		<!-- 스크롤 업-->
+		<div>
+			<i class="bi bi-arrow-up-square-fill" id="scrollUpIcon"></i>
+		</div>
+	</div>
+</div>
+	<div th:replace="footer :: footer"></div>
+	<!-- jQuery (필수) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!-- Bootstrap JS and dependencies -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Moment.js (필수) -->
+	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+	<!-- Bootstrap Date Range Picker JS -->
+	<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<!-- 스크립트 -->
+	<script th:src="@{/js/page_nav.js}" type="text/javascript"></script>
+	<script th:src="@{/js/scroll.js}" type="text/javascript"></script>
+</body>
+</html>

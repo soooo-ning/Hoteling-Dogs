@@ -1,0 +1,76 @@
+.error-class {
+    color: red;
+}
+.error-input {
+    border-color: red;
+}
+
+/* 로그인 폼 스타일 */
+.login-container {
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    height: 90vh; /* 화면 높이에 맞게 조절 */
+    padding: 20px;
+  
+}
+
+.login-box {
+    width: 350px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: rgb(192, 192, 192);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+
+.login-box a {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: rgb(121, 121, 121);
+    text-decoration: none;
+}
+
+.login-box a:hover {
+    text-decoration: underline;
+}
+
+.login-box img {
+    display: block;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+.loginform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*height: 100vh;  화면 높이 전체를 사용해서 중앙에 위치 */
+}

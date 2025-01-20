@@ -1,0 +1,188 @@
+.navbar {
+	position: fixed !important;
+	top: 0;
+	width: 100%;
+	z-index: 1000 !important;
+	/* 다른 요소들보다 위에 표시되도록 설정 */
+	background-color: #fff !important;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+
+}
+
+.d-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+	margin-left:500px;
+}
+
+.navbar-search {
+	gap: 10px;
+}
+
+.navbar-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+
+.navbar-brand {
+	display: flex;
+	align-items: center;
+}
+
+.search-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center; /* 중앙 정렬을 명확하게 설정 */
+	flex-grow: 1;
+	gap: 10px;
+}
+
+.navbar-menu {
+	display: flex;
+	/* align-items: center; */
+	gap: 20px;
+	/* 메뉴 항목 간 간격 */
+	white-space: nowrap;
+	/* 텍스트가 줄바꿈되지 않도록 설정 */
+	flex-shrink: 0;
+	/* 공간이 줄어들지 않도록 설정 */
+	position: relative;
+	margin-right: 20px;
+}
+
+.menu-dropdown {
+	position: relative;
+
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+	padding: 10px;
+	border-radius: 4px;
+	z-index: 1000;
+	flex-direction: column;
+	gap: 10px;
+	top: 100%;
+	/* 메뉴 버튼 아래에 위치 */
+	right: 0;
+}
+
+.dropdown-content.show {
+    display: flex; /* show 클래스가 있을 때 보이게 */
+}
+
+.bi {
+	color: black;
+
+}
+
+.menu-dropdown .dropdown-item {
+	display: block;
+	padding: 8px 12px;
+	text-decoration: none;
+	color: #333;
+}
+
+.menu-dropdown .dropdown-item:hover {
+	background-color: rgb(213, 213, 213);
+}
+
+.navbar-search {
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 (선택 사항) */
+    width: 100%; /* 부모 요소의 너비에 맞추기 */
+}
+
+#searchInput {
+	width: 270px;
+	/* 검색창 너비 */
+}
+
+#dateRangePicker {
+	width: 250px;
+	/* 체크인-체크아웃 필드의 너비 */
+}
+
+
+#searchDropdown {
+	display: none;
+	/* 기본적으로 숨김 처리 */
+	position: fixed;
+	/* 부모 요소를 기준으로 위치 설정 */
+	top: 100%;
+	/* 네비게이션 바 바로 아래에 위치 */
+	left: 50%;
+	/* 부모의 50% 위치 */
+	transform: translateX(-50%);
+	/* 부모의 50% 위치에서 자신의 너비의 50%를 왼쪽으로 이동하여 가운데 정렬 */
+	width: 42% !important;
+	/* 드롭다운의 너비를 넓게 설정 */
+	background-color: #ffffff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	z-index: 1000;
+	padding: 20px;
+	/* 패딩을 추가하여 내부 여백 설정 */
+	box-sizing: border-box;
+}
+
+.dropdown {
+	display: flex;
+	/* 강아지 드롭다운 버튼을 가로 배치에 포함 */
+	align-items: center;
+	flex-shrink: 0;
+	/* 강아지 버튼의 크기가 줄어들지 않도록 설정 */
+	gap: 10px;
+}
+
+.dropdown-button {
+	display: inline-flex;
+	align-items: center;
+
+}
+
+
+.dropdown-content {
+
+	padding: 10px;
+	width: 350px;
+	text-align: center;
+}
+
+@media (max-width: 800px) {
+	/* 작은 화면에서는 체크인-체크아웃과 강아지 드롭다운을 숨김 */
+	  #dateRangePicker, 
+	  .dropdown, 
+	  .navbar-menu {
+	      display: none; /* 숨기기 */
+	  }
+	  #offcanvasSearch {
+	     display: block; /* 작은 화면에서는 검색 버튼으로 오프캔버스를 보이게 설정 */
+	   }
+	   
+	   /* 기존의 검색창과 다른 요소는 숨김 처리 */
+	   #searchInput, #dateRangePicker, .dropdown, .navbar-menu {
+	     display: none;
+	   }
+
+	  /* 검색창은 작은 화면에서도 표시 */
+	  #searchInput {
+	      display: block; /* 표시 */
+	      width: 100%; /* 너비를 100%로 설정 */
+	  }
+
+	  /* 메뉴 버튼은 계속 표시 */
+	  .button-dropdown {
+	      display: block; /* 표시 */
+	  }
+
+	}

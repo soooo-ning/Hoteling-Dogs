@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+		<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+	<link rel="stylesheet" th:href="@{/css/nav_보현.css}">
+	<!-- Bootstrap CSS CDN -->
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+		<!-- Bootstrap Icons CDN -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+		<!-- Bootstrap Date Range Picker CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet">
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+	<nav class="navbar">
+	    <div class="navbar-container">
+	        <!-- 로고 -->
+	        <a class="navbar-brand" th:href="@{/security-login}"><img id="logoImage" src="/images/hotel_logo.png" width="100px"></a>
+	        
+	            <!-- 검색창 -->
+	            <div class="search-container">
+	                <form th:action="@{/hotelList}" method="get" onsubmit="return redirectToSearch()">
+	                    <div class="navbar-search">
+	                        <input id="searchInput" class="form-control me-2" type="search" name="keyword"
+	                            placeholder="여행지나 숙소를 검색해 보세요!" onfocus="toggleSearchForm()">
+	                        <input type="text" id="dateRangePicker" name="daterange" class="form-control"
+	                            placeholder="체크인 - 체크아웃">
+	                        
+	                        <div class="dropdown">
+	                            <!-- 네비게이션 바에 강아지 마리 수 표시할 요소 추가 -->
+	                            <button class="btn btn-outline-secondary" type="button" onclick="toggleDogDropdown()">강아지</button>
+
+	                            <div id="dogDropdown" class="dropdown-content">
+	                                <div class="input-group mb-3">
+	                                    <span class="input-group-text" id="dogWeight1Label">S</span>
+	                                    <button class="btn btn-outline-secondary" type="button"
+	                                        onclick="decrement('dogWeight1')">-</button>
+	                                    <input type="number" class="form-control" id="dogWeight1" value="0" min="0"
+	                                        aria-label="1-6kg" aria-describedby="dogWeight1Label" readonly>
+	                                    <button class="btn btn-outline-secondary" type="button"
+	                                        onclick="increment('dogWeight1')">+</button>
+	                                </div>
+
+	                                <div class="input-group mb-3">
+	                                    <span class="input-group-text" id="dogWeight2Label">M</span>
+	                                    <button class="btn btn-outline-secondary" type="button"
+	                                        onclick="decrement('dogWeight2')">-</button>
+	                                    <input type="number" class="form-control" id="dogWeight2" value="0" min="0"
+	                                        aria-label="7-12kg" aria-describedby="dogWeight2Label" readonly>
+	                                    <button class="btn btn-outline-secondary" type="button"
+	                                        onclick="increment('dogWeight2')">+</button>
+	                                </div>
+
+	                                <div class="input-group mb-3">
+	                                    <span class="input-group-text" id="dogWeight3Label">L</span>
+	                                    <button class="btn btn-outline-secondary" type="button"
+	                                        onclick="decrement('dogWeight3')">-</button>
+	                                    <input type="number" class="form-control" id="dogWeight3" value="0" min="0"
+	                                        aria-label="13-20kg" aria-describedby="dogWeight3Label" readonly>
+	                                    <button class="btn btn-outline-secondary" type="button"
+	                                        onclick="increment('dogWeight3')">+</button>
+	                                </div>
+
+	                                <button class="btn btn-outline-primary" type="button" onclick="applyDogSelection()">적용</button>
+	                                <button class="btn btn-outline-secondary" type="button" onclick="resetDogSelection()">초기화</button>
+	                            </div>
+
+	                            <div class="search-button">
+	                                <button type="submit" class="btn btn-outline-success" onclick="redirectToSearch()">검색</button>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </form>
+	            </div>
+	        
+							<!DOCTYPE html>
+							<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+							<head>
+									<meta charset="UTF-8">
+									<meta name="_csrf" th:content="${_csrf.token}"/>
+							<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+								<link rel="stylesheet" th:href="@{/css/nav_보현.css}">
+								<!-- Bootstrap CSS CDN -->
+									<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+									<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+									<!-- Bootstrap Icons CDN -->
+									<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+									<!-- Bootstrap Date Range Picker CSS -->
+									<link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet">
+										<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+							</head>
+							<body>
+								<nav class="navbar">
+										<div class="navbar-container">
+												<!-- 로고 -->
+												<a class="navbar-brand" th:href="@{/security-login}"><img id="logoImage" src="/images/hotel_logo.png" width="100px"></a>
+												
+														<!-- 검색창 -->
+														<div class="search-container">
+																<form th:action="@{/hotelList}" method="get" onsubmit="return redirectToSearch()">
+																		<div class="navbar-search">
+																				<input id="searchInput" class="form-control me-2" type="search" name="keyword"
+																						placeholder="여행지나 숙소를 검색해 보세요!" onfocus="toggleSearchForm()">
+																				<input type="text" id="dateRangePicker" name="daterange" class="form-control"
+																						placeholder="체크인 - 체크아웃">
+																				
+																				<div class="dropdown">
+																						<!-- 네비게이션 바에 강아지 마리 수 표시할 요소 추가 -->
+																						<button class="btn btn-outline-secondary" type="button" onclick="toggleDogDropdown()">강아지</button>
+							
+																						<div id="dogDropdown" class="dropdown-content">
+																								<div class="input-group mb-3">
+																										<span class="input-group-text" id="dogWeight1Label">S</span>
+																										<button class="btn btn-outline-secondary" type="button"
+																												onclick="decrement('dogWeight1')">-</button>
+																										<input type="number" class="form-control" id="dogWeight1" value="0" min="0"
+																												aria-label="1-6kg" aria-describedby="dogWeight1Label" readonly>
+																										<button class="btn btn-outline-secondary" type="button"
+																												onclick="increment('dogWeight1')">+</button>
+																								</div>
+							
+																								<div class="input-group mb-3">
+																										<span class="input-group-text" id="dogWeight2Label">M</span>
+																										<button class="btn btn-outline-secondary" type="button"
+																												onclick="decrement('dogWeight2')">-</button>
+																										<input type="number" class="form-control" id="dogWeight2" value="0" min="0"
+																												aria-label="7-12kg" aria-describedby="dogWeight2Label" readonly>
+																										<button class="btn btn-outline-secondary" type="button"
+																												onclick="increment('dogWeight2')">+</button>
+																								</div>
+							
+																								<div class="input-group mb-3">
+																										<span class="input-group-text" id="dogWeight3Label">L</span>
+																										<button class="btn btn-outline-secondary" type="button"
+																												onclick="decrement('dogWeight3')">-</button>
+																										<input type="number" class="form-control" id="dogWeight3" value="0" min="0"
+																												aria-label="13-20kg" aria-describedby="dogWeight3Label" readonly>
+																										<button class="btn btn-outline-secondary" type="button"
+																												onclick="increment('dogWeight3')">+</button>
+																								</div>
+							
+																								<button class="btn btn-outline-primary" type="button" onclick="applyDogSelection()">적용</button>
+																								<button class="btn btn-outline-secondary" type="button" onclick="resetDogSelection()">초기화</button>
+																						</div>
+							
+																						<div class="search-button">
+																								<button type="submit" class="btn btn-outline-success" onclick="redirectToSearch()">검색</button>
+																						</div>
+																				</div>
+																		</div>
+																</form>
+														</div>
+												
+												<!-- 사용자 정보와 메뉴 -->
+												<div class="navbar-menu">
+													<div th:if="${#authentication == null or !#authentication.authenticated}">
+														<a class="btn btn-link btn-sm" th:href="@{/security-login/login}" role="button"
+																style="font-size: 0.8rem; color: black;">로그인</a>
+														<a class="btn btn-link btn-sm" th:href="@{/security-login/join}" role="button"
+																style="font-size: 0.8rem; color: black;">회원가입</a>
+												</div>
+												<div th:if="${#authentication != null and #authentication.authenticated}">
+													<span>[[${#authentication.name}]]님 환영합니다!</span>
+													<a th:href="@{/security-login/logout}" class="dropdown-item">Logout</a>
+											</div>
+											<div th:unless="${#authentication != null and #authentication.authenticated}">
+													<a class="btn btn-link btn-sm" th:href="@{/security-login/login}" role="button"
+															style="font-size: 0.8rem; color: black;">로그인</a>
+													<a class="btn btn-link btn-sm" th:href="@{/security-login/join}" role="button"
+															style="font-size: 0.8rem; color: black;">회원가입</a>
+													<a th:href="@{/security-login/login}" class="dropdown-item">Login</a>
+											</div>
+							
+												<!-- Menu 드롭다운 버튼 -->
+												<div class="button-dropdown">
+														<button type="button" class="btn btn-link btn-sm" id="menuDropdown" onclick="toggleMenuDropdown()">
+																<i class="bi bi-list" style="font-size: 30px;"></i>
+														</button>
+														<div id="menuDropdownContent" class="dropdown-content">
+															<a href="#" onclick="focusSearchBar(); return false;" class="dropdown-item">Dog Hotel</a>
+															<a th:href="@{/eventlist}" class="dropdown-item">Event</a>
+															<a th:href="@{/security-login/info}" class="dropdown-item">My Page</a>
+															<div th:if="${#authorization.expression('isAuthenticated()')}">
+																	<a th:href="@{/security-login/logout}" class="dropdown-item">Logout</a>
+															</div>
+															<div th:unless="${#authorization.expression('isAuthenticated()')}">
+																	<a th:href="@{/security-login/login}" class="dropdown-item">Login</a>
+															</div>
+													</div>
+												</div>
+									</div>
+								</nav>
+									</div>
+							</body>
+							</html>
+							
+		</div>
+	</nav>
+    </div>
+</body>
+</html>

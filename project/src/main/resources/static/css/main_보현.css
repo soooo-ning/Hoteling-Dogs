@@ -1,0 +1,356 @@
+/* 기본 스타일 설정 */
+body {
+    font-family: Arial, sans-serif; /* 기본 글꼴 설정 */
+    margin: 10px; /* 페이지 여백 제거 */
+    padding: 0; /* 페이지 패딩 제거 */
+}
+
+.navbar {
+    position: fixed !important;
+    top: 0;
+    width: 100%;
+    z-index: 1000 !important;
+    background-color: transparent !important; /* 기본 투명 배경 */
+    background-size: cover;
+    box-shadow: none !important;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* 스크롤했을 때 네비바 배경을 흰색으로 */
+.navbar.scroll {
+    background-color: white !important;
+    background-image: none; /* 이미지 제거 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-search {
+    display: flex;
+    gap: 10px;
+    position: relative;
+}
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-grow: 1; /* 공간을 차지하도록 확장 */
+    justify-content: center;
+    gap: 10px;
+}
+
+#searchInput {
+    width: 270px; /* 검색창 너비 */
+}
+
+#dateRangePicker {
+    width: 250px; /* 체크인-체크아웃 필드의 너비 */
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 20px; /* 메뉴 항목 간 간격 */
+    white-space: nowrap;
+    flex-shrink: 0;
+    position: relative;
+    margin-right: 20px;
+}
+
+.menu-dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 1000;
+    flex-direction: column;
+    gap: 10px;
+    top: 100%;
+    right: 0;
+}
+
+.dropdown-content.show {
+	display: flex;
+}
+
+.menu-dropdown .dropdown-item {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+}
+
+.menu-dropdown .dropdown-item:hover {
+    background-color: rgb(213, 213, 213);
+}
+
+.bi {
+    color: black;
+}
+
+#searchDropdown {
+    display: none;
+    position: fixed;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 42% !important;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.dropdown {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 10px;
+}
+
+.dropdown-content {
+    padding: 10px;
+    width: 350px;
+    text-align: center;
+}
+
+@media (max-width: 800px) {
+    /* 작은 화면에서는 체크인-체크아웃과 강아지 드롭다운을 숨김 */
+    #dateRangePicker, .dropdown, .navbar-menu {
+        display: none;
+    }
+
+    #offcanvasSearch {
+        display: block; /* 작은 화면에서는 검색 버튼으로 오프캔버스를 보이게 설정 */
+    }
+
+    #searchInput {
+        display: block;
+        width: 100%;
+    }
+
+    .button-dropdown {
+        display: block;
+    }
+}
+
+/* 호텔 리스트 스타일 */
+.popular-hotels {
+    text-align: center;
+    margin: 10px auto;
+	margin-top: 50px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+	margin-top:10px;
+}
+
+.hotel-list {
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap;
+    gap: 26px; /* 카드 간의 간격을 최소화 */
+}
+
+
+.hotel-card {
+    width: 250px;
+    margin: 5px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.hotel-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover; /* 비율 유지하면서 크기에 맞게 조절 */
+}
+
+.hotel-card p {
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #333;
+}
+
+.hotel-card:hover {
+    transform: scale(1.05);
+}
+
+.hotel-name, section-title {
+	font-weight: bold;
+}
+
+.room-prices {
+   font-size: 1rem;
+   color: #28a745;
+   font-weight: bold;
+}
+   
+/* 메인 배너 이미지 스타일 */
+.main-banner {
+    width: 100%;
+    height: 750px;
+    background: url('/images/dog.jpg') no-repeat center center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.search-bar {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input, .search-bar button {
+    margin: 0 5px;
+}
+
+/* 이벤트 카드 스타일 */
+
+.event-cards {
+    display: flex;
+    gap: 26px; /* 카드 간의 간격을 최소화 */ 
+	justify-content: center; 
+}
+
+.event-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    flex: 1;
+   /* margin: 0 10px;*/
+}
+
+.event-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.event-card p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* 주요 콘텐츠 스타일 */
+.content .popular-hotels{
+    padding: 20px;
+    margin-bottom: 50px;
+	
+}
+
+/* 메인 이미지 스타일 */
+.main-image {
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+}
+
+/* 이벤트 미리보기 스타일 */
+.event-preview {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.event-item {
+    width: 24%;
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.event-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.event-item p {
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.banner {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 152px;
+    background-color: #333;
+    margin-bottom: 30px;
+}
+
+.banner img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 100%; /* 이미지를 화면 바깥에 배치 */
+    animation: slide 9s infinite;
+}
+
+.banner img:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.banner img:nth-child(2) {
+    animation-delay: 3s;
+}
+
+.banner img:nth-child(3) {
+    animation-delay: 6s;
+}
+
+@keyframes slide {
+    0% {
+        left: 100%; /* 시작 위치 - 화면 바깥 */
+    }
+    10% {
+        left: 0%; /* 화면에 진입 */
+    }
+    33% {
+        left: 0%; /* 화면에 그대로 유지 */
+    }
+    43% {
+        left: -100%; /* 화면을 빠져나감 */
+    }
+    100% {
+        left: -100%; /* 화면 바깥에서 대기 */
+    }
+}

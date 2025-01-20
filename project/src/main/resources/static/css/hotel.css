@@ -1,0 +1,470 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1); /* 연한 회색 라인 */
+  margin: 40px 0; /* 위아래 간격 */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(245, 245, 245);
+  font-family: 'Pretendard-Regular', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.hotel-detail-item {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.main-box {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 40px;
+  margin-bottom: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.place-meta {
+  margin-top: 20px;
+}
+
+h1 {
+  margin-top: 5px;
+  color: rgba(0, 0, 0, 0.9);
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.rating-review {
+  margin-bottom: 30px;
+}
+
+.stars {
+  color: #f0c040;
+}
+
+.review-link {
+  color: #149c3bad;
+  text-decoration: none;
+}
+
+.column {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-column {
+  width: 65%;
+}
+
+.right-column {
+  width: 30%;
+}
+
+h2 {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.image-slider {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  border-radius: 8px;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.review-item {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+}
+
+.review-item:last-child {
+  border-bottom: none;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.review-rating {
+  color: #f0c040;
+  font-size: 18px;
+  margin-right: 5px;
+}
+
+.review-date {
+  font-size: 14px;
+  color: #888;
+}
+
+.review-content {
+  font-size: 16px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.review-images-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.review-images {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.review-images img {
+  flex: 1;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  max-width: calc((100% - 50px) / 6);
+}
+
+.qa-item {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.qa-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.question {
+  padding: 10px 0;
+}
+
+.answer {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 5px;
+  margin-top: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: none;
+}
+
+.question-header, .answer-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.question-author, .answer-author {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.question-content, .answer-content {
+  margin: 10px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.question-actions a {
+  color: #149c3bad;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination a {
+  margin: 0 5px;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  color: #000;
+  text-decoration: none;
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a.active {
+  background-color: #e6f0ff;
+  color: #149c3bad;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+}
+
+.event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.event-list {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.event-item {
+  width: 30%;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.event-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.event-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.sticky {
+  position: sticky;
+  top: 20px;
+}
+
+.reservation-summary {
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  margin-top: 20px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#wishlistBtn, #shareBtn {
+  flex: 1;
+  padding: 10px 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  color: #333;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+}
+
+#wishlistBtn:hover, #shareBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+#wishlistBtn.active {
+  background-color: #149c3bad;
+  color: white;
+  border-color: #149c3bad;
+}
+
+.date-picker-container {
+  margin-bottom: 20px;
+}
+
+#dateRange {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.dog-type label {
+  display: block;
+  margin-bottom: 10px;
+}
+.reservation-summary li {
+    list-style: none; /* 점 없애기 */
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* 텍스트 색상 */
+	margin: 5px 0; /* 위아래 여백 줄이기 */
+	padding: 5px 0; /* 위아래 패딩 줄이기 */
+   }
+
+.room-prices  {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0; /* 텍스트의 위아래 여백 없애기 */
+  padding: 0; 	
+  
+  }
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn-primary {
+  background-color: #149c3bad;
+  color: white;
+  flex: 1.5;
+  margin-right: 10px;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+  flex: 1;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.navi {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  padding: 0;
+  margin-bottom: 30px;
+  z-index: 100;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin: 0;
+}
+
+.nav-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-btn.active {
+  background-color: #149c3bad;
+  color: #fff !important;
+}
+
+#map {
+  width: 100%;
+  height: 350px;
+}
+
+.btn-primary.active {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  color: white;
+}
+
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0,0,0,.1);
+  border-radius: 50%;
+  border-top-color: #0056b3;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 10px;
+}

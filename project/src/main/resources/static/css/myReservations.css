@@ -1,0 +1,14 @@
+.custom-button {
+    background-color: rgb(213, 213, 213) !important; /* 배경색 */
+    color: rgb(0, 0, 0) !important; /* 텍스트 색상 */
+    border: none !important; 
+    width: 100px; 
+    height: 30px;
+    line-height: 50px; /* 텍스트가 가운데 정렬되도록 높이와 동일하게 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    display: inline-block; /* 요소를 인라인 블록으로 설정 */
+}
+
+.reservations-img {
+	border-radius: 5%;
+}

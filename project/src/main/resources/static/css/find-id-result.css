@@ -1,0 +1,56 @@
+
+body {
+     display: flex;
+     flex-direction: column;
+     min-height: 100vh;
+   
+ }
+
+.maincontainer {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+	height: 400px;
+    margin: 0 auto; /* 수평 중앙 정렬 */
+    margin-top: 150px; /* 상단 여백 추가 */
+}
+
+.maincontainer h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: rgb(0, 0, 0);
+}
+
+.maincontainer h2 {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+a {
+    display: block;
+    margin-top: 15px;
+    font-size: 16px;
+    color: rgb(145, 145, 145);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.btn-custom {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.btn-custom:hover {
+    background-color: #218838;
+}

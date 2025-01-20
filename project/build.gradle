@@ -1,0 +1,77 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.hoteling.project'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://jitpack.io/' }  // iamport
+}
+
+dependencies {
+	// Spring Boot Starters
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Database 상호작용 단순화
+    implementation 'org.springframework.boot:spring-boot-starter-validation' // 데이터 검증
+    implementation 'org.springframework.boot:spring-boot-starter-security' // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // OAuth2 Login
+    implementation 'ognl:ognl:3.3.3'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-logging'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
+
+    // Log4j
+    implementation 'log4j:log4j:1.2.17'
+    
+    // Log4j 2.x
+	implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
+	implementation 'org.apache.logging.log4j:log4j-api:2.20.0'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Database
+    runtimeOnly 'com.mysql:mysql-connector-j'  // MySQL 커넥터
+
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    
+    // Mail
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    
+    // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis' // Spring Data Redis 스타터
+    
+    //iamport
+    implementation 'com.github.iamport:iamport-rest-client-java:0.2.21' // iamport
+  	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor' // iamport
+
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-parameters']
+    options.compilerArgs += ['-parameters']
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

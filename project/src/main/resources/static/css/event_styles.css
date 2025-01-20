@@ -1,0 +1,217 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container-event {
+    width: 70%;
+    margin: 2% auto;
+	height: 90vh;
+	justify-content: center;
+}
+
+h1 {
+    text-align: left;
+    font-size: 24px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #000;
+}
+
+a {
+    color: black !important;
+}
+
+a:hover {
+    color: black !important; /* 호버 시 색상 변경 */
+    text-decoration: none !important; /* 호버 시 밑줄 제거 */
+}
+.form-group {
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group [contenteditable] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    overflow: auto; /* 스크롤 추가 */
+}
+
+[contenteditable] {
+    height: 150px;
+    min-height: 300px;
+    white-space: pre-wrap;
+    overflow: auto; /* 텍스트 박스에 스크롤 추가 */
+}
+
+.form-group img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
+
+.button-group {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button-group button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button-group .cancel-btn {
+    background-color: #333;
+    color: white;
+    margin-right: 10px;
+}
+
+.button-group .submit-btn {
+    background-color: #007BFF;
+    color: white;
+}
+
+/* 이벤트 리스트 스타일 추가 */
+
+/* 모든 이벤트 항목을 감싸는 컨테이너 */
+.event-list {
+    display: flex;
+    flex-wrap: wrap;
+	justify-content: center;
+}
+
+.event-item {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px; /* 필요에 따라 조정 */
+	min-height: 100%;
+    width: 100%;
+	margin: 10px;
+	cursor: pointer;
+}
+
+/* 이미지 스타일 */
+.event-image {
+    width: 100%;          /* 가로를 부모 요소에 맞춤 */
+    height: 180px;        /* 고정된 높이 설정 */
+    object-fit: cover;    /* 이미지를 고정된 크기에 맞추면서 잘라냄 */
+    border-radius: 8px;   /* 테두리 둥글게 설정 */
+}
+
+
+/* 이벤트 세부 정보 */
+.event-details {
+    padding-top: 10px;
+    text-align: left;
+    margin: 0;
+}
+
+.event-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.event-date {
+    font-size: 0.9rem;
+    color: gray;
+    margin: 0;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media (max-width: 768px) {
+    .event-item {
+        max-width: 100%;
+    }
+}
+
+
+.hide{display : none;}
+ #modal {
+    position:relative;
+    width:100%;
+    height:100%;
+    z-index:1;
+ }
+
+ #modal h2 {
+    margin:0;   
+ }
+
+ #modal button {
+    display:inline-block;
+    width:100px;
+    margin-left:calc(100% - 100px - 10px);
+ }
+
+ #modal .modal_content {
+    width:300px;
+    margin:100px auto;
+    padding:20px 10px;
+    background:#fff;
+    border:2px solid #666;
+ }
+
+ #modal .modal_layer {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0, 0, 0, 0.5);
+    z-index:-1;
+ }
+ 
+ .read_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+}
+.read_event-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#read_title {
+    font-size: 24px;
+	font-weight: bold;
+}
+
+
+.read_back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.read_back-button:hover {
+    background-color:#007bff;
+}
+
+ 

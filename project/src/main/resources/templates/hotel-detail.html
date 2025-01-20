@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title th:text="|${pageName}|"></title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<link rel="stylesheet" th:href="@{/css/nav_보현.css}">
+	<link rel="stylesheet" th:href="@{/css/hotel-detail.css}">
+	<link rel="stylesheet" th:href="@{/css/scroll.css}">
+
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap Icons CDN -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+	<!-- Bootstrap Date Range Picker CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+	<div class="header">
+		<!-- 네비게이션 바 -->
+		<div th:insert="~{nav :: nav}"></div>
+		<!-- 네비게이션 바의 높이만큼 여백을 주어 콘텐츠가 네비게이션 바 아래에 위치하도록 함 -->
+		<div style="height: 60px;"></div>
+	</div>
+	<div class="hotel-detail-item">
+		<input type="hidden" id="uId" th:value="${uId}" />
+		<div class="main-box">
+			<div class="place-meta" th:text="${hotel?.location}">hotel location</div>
+			<a th:href="@{/hotel/{hotelId}(hotelId=${hotel?.hotelId})}" class="hotel-name"
+				th:text="${hotel?.hotelName}">Hotel Name</a>
+			<div class="rating-review">
+				<div class="stars">
+					<div>
+						<div class="stars">
+							<span th:each="i : ${#numbers.sequence(1, 5)}">
+								<span th:if="${i <= averageRating}" class="filled">★</span>
+								<span th:if="${i > averageRating}">☆</span>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${reviewCount == 0}" style="display: inline;">
+					0.0
+				</div>
+				<div th:unless="${reviewCount == 0}" style="display: inline;">
+					<span th:text="${averageRating}">평점</span>
+				</div>
+
+				<a th:href="@{'/reviews/' + ${hotel.hotelId}}" class="review-link" style="display: inline;">
+					(리뷰
+					<span th:if="${reviewCount == 0}">0</span>
+					<span th:unless="${reviewCount == 0}" th:text="${reviewCount}"></span>개)
+				</a>
+
+				<!-- 하트와 공유 버튼 -->
+				<div class="action-buttons">
+					<button class="heart-button" th:data-hotel-id="${hotel?.hotelId}"
+						th:classappend="${wishlist != null and wishlist.contains(hotel.hotelId) ? 'heart-filled' : ''}"
+						onclick="toggleWishlist(this)">
+						<i class="fa fa-heart"></i>
+					</button>
+					<button id="shareBtn" class="btn-action" data-clipboard-text="">
+						<i class="bi bi-share"></i>
+					</button>
+				</div>
+			</div>
+			<div class="column">
+				<div class="left-column">
+					<div class="image-slider" role="region" aria-label="장소 이미지 슬라이더">
+						<div class="slide active">
+							<img th:src="@{/images/{imageName}(imageName=${hotel.getMainImage() != null ? hotel.getMainImage().getImageUrl() : 'default.jpg'})}"
+								alt="Hotel Image">
+						</div>
+						<div th:each="image : ${hotel.images}" th:if="${!image.isMain}">
+							<div class="slide">
+								<img th:src="@{/images/{imageName}(imageName=${image.getImageUrl()})}"
+									alt="Hotel Additional Image" loading="lazy">
+							</div>
+						</div>
+						<button class="prev"><i class="fas fa-chevron-left"></i></button>
+						<button class="next"><i class="fas fa-chevron-right"></i></button>
+						<div class="slider-indicators" aria-hidden="true">
+							<span class="active"></span>
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+
+					<nav class="navi">
+						<button class="nav-btn" data-target="hotel-intro">
+							<h3>호텔 소개</h3>
+						</button>
+						<button class="nav-btn" data-target="hotel-review">
+							<h3>호텔 리뷰</h3>
+						</button>
+						<button class="nav-btn" data-target="location">
+							<h3>위치</h3>
+						</button>
+						<button class="nav-btn" data-target="caution">
+							<h3>주의 사항</h3>
+						</button>
+						<button class="nav-btn" data-target="qna">
+							<h3>Q&A</h3>
+						</button>
+					</nav>
+
+					<section id="hotel-intro" class="hotel-details">
+						<h2>호텔 소개</h2>
+						<div class="hotel-contents">
+							<div class="hotel-info" th:text="${hotel?.content}">Detailed info about the hotel.</div>
+						</div>
+					</section>
+					<hr>
+					<!-- 리뷰 출력 -->
+					<section id="hotel-review" class="hotel-review">
+						<div class="review-header">
+							<h2>호텔 리뷰
+								<span class="review-rating">★ <span
+										th:text="${averageRating}">5.0</span>
+									</span>
+									</h2>
+									<a th:href="@{'/reviews/' + ${hotel.hotelId}}" class="review-link">전체 보기</a>
+						</div>
+
+						<!-- 리뷰가 있을 경우 -->
+						<div th:if="${!reviews.isEmpty()}">
+							<div class="review-images-container">
+								<div class="review-images" th:each="review : ${reviews}">
+									<img th:src="@{'/images/' + ${review.imageUrl}}" alt="Review Image" loading="lazy" style="max-width: 100px; max-height: 100px;">
+								</div>
+
+							</div>
+
+							<div class="recent-reviews">
+								<div class="review-item" th:each="review : ${reviews}">
+									<div class="review-item-header">
+										<!-- 사용자 ID 출력 -->
+										<span class="review-author" th:text="${review.user.uId}">nickname</span>
+
+										<!-- 별점 출력 -->
+										<span class="review-rating" th:text="${review.review_star} + '★'">★★★★★</span>
+
+										<!-- 날짜 출력 -->
+										<span class="review-date"
+											th:text="${#temporals.format(review.created_at, 'yyyy.MM.dd')}">2024.03.31</span>
+									</div>
+
+									<!-- 리뷰 내용 출력 -->
+									<div class="review-content" th:text="${review.content}">리뷰 내용...</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 리뷰가 없을 경우 -->
+						<div th:if="${reviews.isEmpty()}">
+							<p>등록된 리뷰가 없습니다.</p>
+						</div>
+					</section>
+
+
+					<hr>
+
+					<section id="location">
+						<h2>위치</h2>
+						<div id="map" th:data-location="${hotel?.location}"></div>
+
+					</section>
+
+					<hr>
+
+					<section id="caution" class="caution">
+						<h2>주의 사항</h2>
+						<div class="caution-contents">
+							<div th:utext="${#strings.replace(hotel?.caution, '*', '<br>*')}">Caution about the hotel.
+							</div>
+						</div>
+					</section>
+
+					<hr>
+
+					<section id="qna" class="qna">
+						<h2>Q & A</h2>
+						<div id="qa-container">
+							<div th:if="${#lists.isEmpty(questions)}">
+								<p>현재 등록된 질문이 없습니다. 첫 번째 질문을 남겨보세요!</p>
+							</div>
+							<div class="qa-item" th:each="question : ${questions}">
+								<!-- 질문 -->
+								<div class="question">
+									<div class="question-header">
+										<span class="question-author" th:text="${question.user.uName}">질문자</span>
+										<span class="question-date"
+											th:text="${#temporals.format(question.questionDate, 'yyyy.MM.dd')}">질문
+											날짜</span>
+									</div>
+									<div class="question-content" th:text="${question.content}">
+										<!-- 질문 내용이 여기에 출력됩니다. -->
+									</div>
+									<div class="question-actions">
+										<a href="#" class="toggle-answer">답변 보기</a>
+									</div>
+								</div>
+
+								<!-- 답변 -->
+								<div class="answer" style="display: none;"
+									th:if="${answersMap[question.questionId] != null and answersMap[question.questionId].size() > 0}">
+									<div th:each="answer : ${answersMap[question.questionId]}">
+										<div class="answer-header">
+											<span class="answer-author">호스트 답변&nbsp;&nbsp;</span>
+											<span class="answer-date"
+												th:text="${#temporals.format(answer.answerDate, 'yyyy.MM.dd')}">답변
+												날짜</span>
+										</div>
+										<div class="answer-content" th:text="${answer.answerContent}">
+											답변 내용이 여기에 출력됩니다.
+										</div>
+									</div>
+								</div>
+
+								<div
+									th:if="${answersMap[question.questionId] == null or answersMap[question.questionId].size() == 0}">
+									<p>답변이 없습니다.</p>
+								</div>
+							</div>
+
+						</div>
+						<div class="pagination">
+							<a href="..." class="page-link" data-page="prevPage">&laquo;</a>
+							<a href="..." class="page-link" data-page="prev">&lt;</a>
+							<a href="#" class="page-link" data-page="1">1</a>
+							<a href="#" class="page-link active" data-page="2">2</a>
+							<a href="#" class="page-link" data-page="3">3</a>
+							<a href="#" class="page-link" data-page="nextPage">></a>
+							<a href="#" class="page-link" data-page="next">»</a>
+						</div>
+					</section>
+
+					<hr>
+
+					<section id="events" class="event">
+						<div class="event-header">
+							<h2>최신 이벤트</h2>
+							<a href="/eventlist" class="event-link">더 보기</a>
+						</div>
+
+						<!-- 이벤트 리스트 출력 -->
+						<form id="event_move_form" action="/eventread" method="POST"> <!-- 지우지 마시오 -->
+							<input type="hidden" id="event_id" name="event_id" value="">
+						</form>
+
+						<div class="event-list">
+							<th:block th:each="event : ${events}">
+								<div th:id="${event.event_id}+_divArea" class="event-item">
+									<a class="event-link" href="#" th:onclick="'setEventId(' + ${event.event_id} + ')'"
+										style="display: block; text-decoration: none;">
+										<!-- 이벤트 타이틀 이미지 -->
+										<th:block th:each="file : ${eventFiles}">
+											<th:block th:if="${file.event.event_id == event.event_id}">
+												<img th:id="${event.event_id}+_event_title_file" class="event-image"
+													th:src="'data:image/jpeg;base64,' + ${file.event_title_file}"
+													alt="이벤트 타이틀 이미지" />
+											</th:block>
+										</th:block>
+
+										<!-- 이벤트 제목과 날짜 -->
+										<div class="event-details">
+											<div th:id="${event.event_id}+_event_title" class="event-title"
+												th:text="${event.title}"></div>
+
+											<div th:id="${event.event_id}+_event_created_at" class="event-date"
+												th:text="${event.created_at}"></div>
+										</div>
+									</a>
+								</div>
+							</th:block>
+						</div>
+					</section>
+
+				</div>
+
+				<div class="right-column">
+					<div class="sticky">
+						<div class="reservation-summary">
+							<div class="date-picker-container">
+								<label for="dateRange">
+									<h3>날짜 선택</h3>
+								</label> <!-- 라벨이 입력 필드 위에 배치됨 -->
+								<input type="text" id="dateRange" placeholder="체크인 - 체크아웃" />
+							</div>
+							<div class="dog-type">
+								<h3>강아지 유형</h3>
+								<br>
+								<label><input type="radio" name="dog-size" value="small"> 소형견 (~10kg)</label>
+								<label><input type="radio" name="dog-size" value="medium"> 중형견 (10~22kg)</label>
+								<label><input type="radio" name="dog-size" value="large"> 대형견 (22kg~)</label>
+							</div>
+							<hr>
+							<div class="price">
+								<span id="priceDisplay">30,000원 / 1박</span>
+						</div>
+							<div class="button-container">								
+								<button id="reserveBtn" type="submit" class="btn btn-primary submit">예약하기</button>
+								<button id="inquiryBtn" class="btn btn-secondary">문의</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 스크롤 업-->
+	<div>
+		<i class="bi bi-arrow-up-square-fill" id="scrollUpIcon"></i>
+	</div>
+	<div th:replace="~{footer :: footer}"></div>
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=96ae16d5665dad89ac649af6b1dbe0ba&libraries=services"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+	<!-- jQuery (필수) -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!-- Bootstrap JS and dependencies -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Moment.js (필수) -->
+	<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+	<!-- Bootstrap Date Range Picker JS -->
+	<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<!-- (사용자 정의 자바스크립트) -->
+	<script th:src="@{/js/hotel-detail.js}" type="text/javascript"></script>
+	<script th:src="@{/js/page_nav.js}" type="text/javascript"></script>
+	<script th:src="@{/js/scroll.js}" type="text/javascript"></script>
+</body>
+
+</html>

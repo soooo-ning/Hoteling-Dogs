@@ -1,0 +1,102 @@
+/* 기본 설정 */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+body {
+	font-family: 'Helvetica', sans-serif;
+	background-color: #f8f9fa;
+	color: #333;
+	flex: 1;
+	min-height: 20px;
+}
+
+/* 푸터 하단 고정 */
+footer {
+	background-color: #007bff;
+	color: white;
+	text-align: center;
+	padding: 10px 0;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+}
+
+h1 {
+	text-align: center;
+	margin-top: 130px;
+	font-size: 2rem;
+	color: #007bff;
+}
+
+/* 리뷰 리스트 컨테이너 */
+#reviewList {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+	list-style-type: none;
+	padding: 0;
+	flex: 1;
+}
+
+/* 리뷰 카드 */
+.review-card {
+	display: flex;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	width: 60%;
+	margin: 20px 0;
+	padding: 20px;
+	border: 1px solid #ddd;
+}
+
+/* 왼쪽 영역 (사용자 아이디, 별점, 점수) */
+.review-left {
+	display: flex;
+	flex-direction: column;
+	/*justify-content: center;
+	align-items: flex-start;*/
+	margin-bottom: 20px;
+	width: 20%;
+}
+
+.stars {
+	color: gold;
+	margin-left:-5px;
+}
+
+.review-left h4 {
+	margin-bottom: 10px;
+}
+
+.review-left .stars, .review-left .score {
+	margin-bottom: 5px;
+}
+
+/* 오른쪽 영역 (이미지 및 리뷰 내용) */
+.review-right {
+	display: flex;
+	flex-direction: column;
+	/*align-items: center;*/
+	color: rgb(145, 145, 145);
+	width: 80%;
+	margin-left: 20px;
+}
+
+.review-image {
+	width: 200px;
+	justify-content: left;
+	height: auto;
+	margin-bottom: 10px;
+}
+
+.review-content {
+/*	text-align: center;*/
+	margin-top: 10px;
+}

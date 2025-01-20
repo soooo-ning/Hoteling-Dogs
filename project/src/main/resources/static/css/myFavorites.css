@@ -1,0 +1,58 @@
+.custom-button {
+    background-color: rgb(213, 213, 213) !important; /* 배경색 */
+    color: rgb(0, 0, 0) !important; /* 텍스트 색상 */
+    border: none !important; 
+    width: 100px; 
+    height: 30px;
+    line-height: 50px; /* 텍스트가 가운데 정렬되도록 높이와 동일하게 설정 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    display: inline-block; /* 요소를 인라인 블록으로 설정 */
+}
+
+.favorite-hotels {
+    margin-bottom: 20px; /* 호텔 항목 간격 */
+    padding: 10px; /* 항목 내 여백 추가 */
+    transition: box-shadow 0.3s; /* 그림자 전환 효과 */
+}
+
+.heart-icon {
+    position: absolute; /* 하트 아이콘의 위치를 절대적으로 설정 */
+    right: 5px; /* 카드 이미지 오른쪽에서 5px 떨어지게 설정 */
+    font-size: 20px; /* 하트 아이콘의 크기 설정 */
+    color:#ff6b6b; /* 하트 아이콘의 색상 설정 */
+    border-radius: 50%; /* 하트 아이콘의 배경을 둥글게 설정 */
+    padding: 2px; /* 하트 아이콘 주변의 패딩 설정 */
+}
+
+.heart-icon:hover {
+    color: rgb(255, 255, 255); /* 호버 시 색상 변화 */
+}
+
+
+/* 이미지 박스의 상대 위치 지정 */
+.images-box {
+    position: relative; /* 하트 아이콘의 위치 기준 설정 */
+}
+
+.reservations-img {
+    border-radius: 5%;
+    width: 100px; /* 이미지 크기 */
+    height: 100px; /* 이미지 크기 */
+}
+
+.reservation-content {
+    display: flex; /* 플렉스 박스로 설정하여 가로 배치 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.text-box {
+    margin-left: 15px; /* 이미지와의 간격 */
+}
+
+.reservation-item {
+    margin-bottom: 15px; /* 각 호텔 항목 간의 여백 */
+}
+
+.card-text.hotel-name {
+	font-weight: bold !important;
+}

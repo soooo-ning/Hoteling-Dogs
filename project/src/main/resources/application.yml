@@ -1,0 +1,107 @@
+iamport:
+  api:
+    key: 7182580643388250  # Iamport API 키
+    secret: NxtJ1i0c9J5oR4BibvghfBPucB679UOLB1H0qj3snuNXFklCtLECaVXS79hiexPRaMrE6fiTc1SvryEH  # Iamport API 시크릿 키
+
+server:
+  port: 8080  # 서버가 실행될 포트 번호
+
+spring:
+  mvc:
+    static-path-pattern: /**
+
+    web:
+    resources:
+      static-locations: classpath:/static/,file:./hotel-images/
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/hoteling  # MySQL 데이터베이스 연결 URL
+    username: developer  # MySQL 데이터베이스 사용자 이름
+    password: P!ssw0rd  # MySQL 데이터베이스 비밀번호
+    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL JDBC 드라이버 클래스
+
+  thymeleaf:
+    cache: false  # Thymeleaf 템플릿 캐시 비활성화 (개발 중에는 false로 설정하여 즉시 반영되도록 함)
+    extras:
+      springsecurity6:
+        enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Hibernate가 데이터베이스 스키마를 자동으로 업데이트 (운영 환경에서는 create, update 사용을 피해야 함)
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy  # 테이블과 컬럼 명에 대한 네이밍 전략 설정
+    show-sql: true  # 실행되는 SQL 쿼리를 콘솔에 출력
+    properties:
+      hibernate:
+        format_sql: true  # SQL 쿼리 출력 시 가독성을 높이기 위해 포맷팅
+        dialect: org.hibernate.dialect.MySQLDialect  # MySQL 방언 설정 (MySQL에 맞는 SQL 구문을 사용)
+
+  servlet:
+    multipart:
+      max-file-size: 100MB  # 업로드 가능한 파일의 최대 크기 설정 (여기서는 100MB)
+      max-request-size: 100MB  # 요청의 최대 크기 설정 (100MB로 설정)
+
+  logging:
+    level:
+      org.springframework: DEBUG  # Spring 관련 로그 레벨을 DEBUG로 설정
+      org.hibernate.SQL: DEBUG  # Hibernate SQL 관련 로그 레벨을 DEBUG로 설정
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # SQL 바인딩에 대한 상세 로그 레벨 설정
+      com.hoteling.project: TRACE  # 애플리케이션에서 정의한 패키지의 로그 레벨 설정
+      root: INFO  # 기본 로그 레벨을 INFO로 설정 (기본적으로 INFO 레벨 로그만 출력)
+
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 445961756734-6eifi824p1avuevfegr4m5ngkek7imnh.apps.googleusercontent.com  # Google OAuth2 클라이언트 ID
+            client-secret: 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  # Google OAuth2 클라이언트 비밀키
+            scope:
+              - email  # Google OAuth2 인증 시 이메일 권한 요청
+              - profile  # Google OAuth2 인증 시 프로필 권한 요청
+            redirect-uri: http://localhost:8080/login/oauth2/code/google  # Google 로그인 후 리다이렉트할 URI
+            authorization-grant-type: authorization_code  # OAuth2 인증 방식을 authorization_code로 설정
+          kakao:
+            client-id: 2f2c37e8ae2ba3e5275e180a93d77e04  # Kakao OAuth2 클라이언트 ID
+            client-secret: kfqmYHeGzlyMX8t1wKtKr2fvzI8mXYCQ  # Kakao OAuth2 클라이언트 비밀키
+            scope:
+              - account_email  # Kakao OAuth2 인증 시 이메일 권한 요청
+              - profile_nickname  # Kakao OAuth2 인증 시 프로필 닉네임 권한 요청
+            authorization-grant-type: authorization_code  # OAuth2 인증 방식을 authorization_code로 설정
+            redirect-uri: http://localhost:8080/login/oauth2/code/kakao  # Kakao 로그인 후 리다이렉트할 URI
+            client-name: Kakao  # 클라이언트 이름 설정
+            client-authentication-method: client_secret_post  # 클라이언트 인증 방법 설정 (POST 방식으로 클라이언트 시크릿 전송)
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth  # Google 인증 URI
+            token-uri: https://oauth2.googleapis.com/token  # Google 토큰 발급 URI
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo  # Google 사용자 정보 URI
+            user-name-attribute: sub  # Google 사용자 ID가 위치한 속성명 설정
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize  # Kakao 인증 URI
+            token-uri: https://kauth.kakao.com/oauth/token  # Kakao 토큰 발급 URI
+            user-info-uri: https://kapi.kakao.com/v2/user/me  # Kakao 사용자 정보 URI
+            user-name-attribute: id  # Kakao 사용자 ID가 위치한 속성명 설정
+
+  mail:
+    host: smtp.gmail.com  # Gmail SMTP 서버 호스트명
+    port: 587  # Gmail SMTP 서버 포트 번호 (STARTTLS 포트)
+    username: bh979797@gmail.com  # 이메일 발송에 사용할 계정의 이메일 주소
+    password: zehz syyw jxes zcyp  # 이메일 계정 비밀번호 또는 Gmail 앱 비밀번호
+    properties:
+      mail:
+        smtp:
+          auth: true  # SMTP 서버 인증 활성화
+          starttls:
+            enable: true  # STARTTLS 활성화
+            required: true  # STARTTLS 필수 설정
+          connectiontimeout: 5000  # SMTP 서버 연결 타임아웃 설정 (단위: 밀리초)
+          timeout: 5000  # SMTP 통신 타임아웃 설정
+          writetimeout: 5000  # SMTP 쓰기 타임아웃 설정
+    auth-code-expiration-millis: 1800000  # 인증 코드 유효 기간 설정 (30분 = 1800000ms)
+
+  data:
+    redis:
+      host: localhost  # Redis 서버 호스트 (로컬에서 실행 중인 Redis 사용)
+      port: 6379  # Redis 서버 포트 번호

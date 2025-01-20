@@ -1,0 +1,53 @@
+body {
+       display: flex;
+       flex-direction: column;
+       min-height: 100vh;
+   }
+
+       .findidform {
+           margin-top: 100px;
+           padding: 30px;
+           background-color: #f8f9fa;
+           border-radius: 15px;
+           box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+           width: 80%;
+           max-width: 500px;
+           margin-left: auto;
+           margin-right: auto;
+       }
+
+       h1 {
+           font-size: 2rem;
+           text-align: center;
+           color: #343a40;
+           margin-bottom: 20px;
+       }
+
+       .form-label {
+           font-size: 1rem;
+           color: #495057;
+       }
+
+       #uEmail, #verifyCode {
+           margin-bottom: 15px;
+       }
+
+       .btn-success {
+           width: 100%;
+           padding: 10px;
+           font-size: 1.1rem;
+           border-radius: 8px;
+           margin-bottom: 15px;
+       }
+
+       .alert {
+           margin-top: 20px;
+       }
+
+       footer {
+           margin-top: auto;
+           background-color: #343a40;
+           color: white;
+           text-align: center;
+           padding: 20px;
+       }

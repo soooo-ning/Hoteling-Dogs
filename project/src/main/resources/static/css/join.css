@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /*background-color: #f4f4f4;*/
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.container-content {
+    max-width: 800px;
+    margin: 20px auto; /* 중앙에 위치시키기 위해 margin을 20px 0으로 설정 */
+    background-color: #fff;
+    padding: 20px; /* 패딩을 적절하게 설정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+}
+
+a {
+    color: black !important;
+}
+
+a:hover {
+    color: black !important; /* 호버 시 색상 변경 */
+    text-decoration: none !important; /* 호버 시 밑줄 제거 */
+}
+/* mt-2: 상단에 20px의 간격을 추가하는 클래스 */
+.mt-2 {
+    margin-top: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.form-section {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* 기본 버튼 스타일 */
+.btn .btn-submit{
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #28a745; /* 기본 배경색 */
+    color: #fff; /* 텍스트 색상 */
+    text-align: center;
+    margin-top: 10px;
+}
+
+
+/* 특정한 margin-top을 지정할 수 있습니다. */
+.btn.mt-2 {
+    margin-top: 20px; /* 버튼 위에 20px의 간격을 추가 */
+}
+
+
+.text-center {
+    text-align: center;
+}
+
+.dog-info-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}

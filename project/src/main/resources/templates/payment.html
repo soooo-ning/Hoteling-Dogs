@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>결제</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+</head>
+<body>
+    <h1>결제 진행</h1>
+    <button id="pay-button">결제하기</button>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const reservationId = urlParams.get('reservationId');
+        const amount = urlParams.get('amount');
+
+        document.getElementById('pay-button').addEventListener('click', function() {
+            var IMP = window.IMP;
+            IMP.init('imp34612723'); // 아임포트 키로 교체
+
+            IMP.request_pay({
+                pg: 'kakaopay',  // 또는 'html5_inicis'
+                pay_method: 'card',
+                merchant_uid: 'merchant_' + new Date().getTime(),
+                name: '호텔 예약',
+                amount: amount,
+                buyer_email: 'buyer@example.com',
+                buyer_name: '구매자',
+                buyer_tel: '010-1234-5678',
+            }, function (rsp) {
+                if (rsp.success) {
+                    // 결제 성공 시 서버에 결제 정보 전송
+                    fetch('/payment', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            reservationId: reservationId,
+                            impUid: rsp.imp_uid,
+                            merchantUid: rsp.merchant_uid,
+                            paymentMethod: rsp.pay_method,
+                            amount: rsp.paid_amount,
+                            status: 'COMPLETED'
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('결제가 완료되었습니다.');
+                            window.location.href = '/reservation-complete';
+                        } else {
+                            alert('결제는 성공했으나 서버 처리 중 오류가 발생했습니다.');
+                        }
+                    });
+                } else {
+                    alert('결제에 실패하였습니다. ' + rsp.error_msg);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

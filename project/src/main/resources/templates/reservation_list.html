@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="|${pageName}|"></title>
+    <link rel="stylesheet" th:href="@{/css/reservation_listdetail.css}">
+    <link rel="stylesheet" th:href="@{/css/scroll.css}">
+    <link rel="stylesheet" th:href="@{/css/navi.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Page - Reservation Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/reservation_listdetail.css"> <!-- CSS 파일 링크 -->
+    <script src="/js/reservaion_listdetail.js" defer></script> <!-- JavaScript 파일 링크 -->
+</head>
+<body>
+<div class="header">
+    <!-- 네비게이션 바 -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <!-- 로고 -->
+            <a class="navbar-brand" th:href="@{/security-login}"><img src="/images/pjlogo.png" width="100px"></a>
+
+            <!-- 검색창 -->
+            <div class="search-container">
+                <form th:action="@{/security-login/search}" method="get">
+                    <div class="navbar-search">
+                        <input id="searchInput" class="form-control me-2" type="search" name="keyword"
+                               placeholder="여행지나 숙소를 검색해보세요" onfocus="toggleSearchForm()" />
+                        <input type="text" id="dateRangePicker" name="daterange" class="form-control"
+                               placeholder="체크인 - 체크아웃" />
+
+                        <!-- 강아지 드롭다운 -->
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary" type="button"
+                                    onclick="toggleDogDropdown()">강아지</button>
+                            <div id="dogDropdown" class="dropdown-content">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="dogWeight1Label">S</span>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                            onclick="decrement('dogWeight1')">-</button>
+                                    <input type="number" class="form-control" id="dogWeight1" value="0" min="0"
+                                           aria-label="1-6kg" aria-describedby="dogWeight1Label" readonly>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                            onclick="increment('dogWeight1')">+</button>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="dogWeight2Label">M</span>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                            onclick="decrement('dogWeight2')">-</button>
+                                    <input type="number" class="form-control" id="dogWeight2" value="0" min="0"
+                                           aria-label="7-12kg" aria-describedby="dogWeight2Label" readonly>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                            onclick="increment('dogWeight2')">+</button>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="dogWeight3Label">L</span>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                            onclick="decrement('dogWeight3')">-</button>
+                                    <input type="number" class="form-control" id="dogWeight3" value="0" min="0"
+                                           aria-label="13-20kg" aria-describedby="dogWeight3Label" readonly>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                            onclick="increment('dogWeight3')">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 검색 버튼 -->
+                        <div class="search-button">
+                            <button type="submit" class="btn btn-outline-success">검색</button>
+                        </div>
+                    </div>
+                </form> <!-- form 닫기 -->
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- 네비게이션 바의 높이만큼 여백을 주어 콘텐츠가 네비게이션 바 아래에 위치하도록 함 -->
+<div style="height: 60px;"></div>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+    <!-- Reservation Details -->
+    <div class="reservation-details">
+        <h2>예약 확인 및 취소</h2>
+
+        <h3>상품 및 이용정보</h3>
+        <div class="info-group">
+            <div class="info">
+                <label>호텔 이름</label>
+                <span>DB에서 불러온 호텔 이름</span>
+            </div>
+            <br>
+            <div class="info">
+                <label>이용 일자</label>
+                <span>DB에서 불러온 이용 일자</span>
+            </div>
+        </div>
+        <br>
+        <div class="info">
+            <label>체크인 날짜</label>
+            <span>DB에서 불러온 체크인 날짜</span>
+        </div>
+        <div class="info">
+            <label>체크아웃 날짜</label>
+            <span>DB에서 불러온 체크아웃 날짜</span>
+        </div>
+        <hr>
+        <h3>예약자 정보</h3>
+        <div class="info">
+            <label>성명</label>
+            <span>DB에서 불러온 성명</span>
+        </div>
+        <div class="info">
+            <label>연락처</label>
+            <span>DB에서 불러온 연락처</span>
+        </div>
+        <hr>
+        <h3>이용자 정보</h3>
+        <div class="info">
+            <label>강아지 이름</label>
+            <span>DB에서 불러온 강아지 이름</span>
+        </div>
+        <div class="info">
+            <label>강아지 성별</label>
+            <span>DB에서 불러온 강아지 성별</span>
+        </div>
+        <br><br>
+        <div class="info">
+            <label>중성화 여부</label>
+            <span>DB에서 불러온 중성화 여부</span>
+        </div>
+        <div class="info">
+            <label>전달 사항</label>
+            <span>DB에서 불러온 전달 사항</span>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Payment Information -->
+        <div class="box">
+            <h3>결제 정보</h3>
+            <div class="info">
+                <label>결제 수단</label>
+                <span>DB에서 불러온 결제 수단</span>
+            </div>
+            <div class="info">
+                <label>총 결제 금액</label>
+                <span>DB에서 불러온 총 결제 금액</span>
+            </div>
+            <div class="info">
+                <label>포인트 사용 금액</label>
+                <span>DB에서 불러온 포인트 사용 금액</span>
+            </div>
+            <div class="info">
+                <label>취소 수수료</label>
+                <span>DB에서 불러온 취소 수수료</span>
+            </div>
+            <div class="info">
+                <label>총 환불(예정) 금액</label>
+                <span>DB에서 불러온 환불 금액</span>
+            </div>
+        </div>
+
+        <!-- Refund Policy -->
+        <div class="box refund-policy">
+            <h3>환불 규정 안내</h3>
+            <p>여기 환불 규정에 대한 내용을 기재합니다.</p>
+            <input type="checkbox" id="agree" onclick="toggleCancelButton(this)">
+            <label for="agree">취소 약관에 동의합니다.</label>
+        </div>
+
+        <!-- Cancel Reservation Button -->
+        <div id="cancelButton" class="box cancel-button">
+            예약 취소하기
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

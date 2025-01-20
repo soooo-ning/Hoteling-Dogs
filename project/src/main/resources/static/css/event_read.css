@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.read_container {
+ width: 80%;
+ margin: 2% auto;
+    display: flex;
+    flex-direction: column;
+text-align: center;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+a {
+    color: black !important;
+}
+
+a:hover {
+    color: black !important; /* 호버 시 색상 변경 */
+    text-decoration: none !important; /* 호버 시 밑줄 제거 */
+}
+
+h1 {
+    text-align: center; /* Centers the text */
+    font-size: 24px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    width: 100%; /* Makes the underline span the container width */
+    border-bottom: 1px solid #000;
+}
+ 
+
+
+.read_event-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+#read_title {
+    font-size: 24px;
+font-weight: bold;
+text-align: center;
+}
+
+
+.read_back-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.read_back-button:hover {
+    background-color: #0056b3;
+}
