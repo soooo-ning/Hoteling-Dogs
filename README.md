@@ -33,11 +33,20 @@
 
 ## 📃 Output
 
-<img width="2440" height="1287" alt="erd" src="https://github.com/user-attachments/assets/6f1d9a8b-1002-438e-86dd-d7cb57e45b98" /> <br>
+<details>
+  <summary>ERD</summary>
+  <img width="2440" height="1287" alt="erd" src="https://github.com/user-attachments/assets/6f1d9a8b-1002-438e-86dd-d7cb57e45b98" />
+</details>
 
-![IA](https://github.com/user-attachments/assets/50d4bfa4-9cf6-43fa-8da4-35e8963ba945)
+<details>
+  <summary>IA</summary>
+  <img width="2440" height="1287" alt="erd" src="https://github.com/user-attachments/assets/50d4bfa4-9cf6-43fa-8da4-35e8963ba945" />
+</details>
 
-![예약 상세 페이지](https://github.com/user-attachments/assets/4e5e5086-83df-4fc5-9d5a-0fa688984326)
+<details>
+  <summary>wireframe</summary>
+  <img width="2440" height="1287" alt="erd" src="https://github.com/user-attachments/assets/4e5e5086-83df-4fc5-9d5a-0fa688984326" />
+</details>
 
 <br>
 
