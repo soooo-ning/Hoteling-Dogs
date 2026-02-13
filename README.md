@@ -134,92 +134,74 @@ com.hoteling.project/
 
 ### 주요 구현 코드
 
-### 1. 객실 가용성 체크 API
+### 1. 예약 및 결제 시스템
+
+> [ReservationController.java](project/src/main/java/com/hoteling/project/controller/ReservationController.java) | [PaymentController.java](project/src/main/java/com/hoteling/project/controller/PaymentController.java)
+
+- 날짜, 강아지 크기별 객실 예약 API 개발
+- 아임포트(I'mport) 결제 시스템 연동 (카카오페이, 토스페이)
+- 예약-결제 프로세스 통합 관리
+- 예약 정보 실시간 검증 및 유효성 확인
+
+### 2. 객실 가용성 관리
+
+> [HotelController.java](project/src/main/java/com/hoteling/project/controller/HotelController.java) | [ReservationServiceImplement.java](project/src/main/java/com/hoteling/project/service/implement/ReservationServiceImplement.java)
+
+- 날짜 및 반려견 유형별 객실 가용성 확인 API
+- 실시간 객실 재고 관리 시스템
+- 예약 확정 시 객실 가용성 자동 업데이트
+
+### 3. 호텔 정보 시스템
 
 > [HotelController.java](project/src/main/java/com/hoteling/project/controller/HotelController.java)
 
-날짜와 강아지 타입에 따른 예약 가능 객실 조회:
+- 호텔 상세 정보 제공 API
+- 카카오맵 API 연동을 통한 위치 정보 제공
+- 이미지 슬라이더, 리뷰, Q&A 통합 조회
 
-```java
-@GetMapping("/hotel/availability")
-@ResponseBody
-public ResponseEntity<?> checkAvailability(
-        @RequestParam("hotelId") Long hotelId,
-        @RequestParam("startDate") LocalDate startDate,
-        @RequestParam("endDate") LocalDate endDate,
-        @RequestParam("dogType") DogType dogType) {
+<br>
 
-    List<HotelRoomEntity> availableRooms =
-        hotelListService.findAvailableRooms(hotelId, startDate, endDate, dogType);
+## 🔍 Trouble Shooting
 
-    Map<String, Object> response = new HashMap<>();
-    response.put("code", "SU");
-    response.put("availableRoom", availableRooms.stream()
-            .map(room -> {
-                Map<String, Object> roomData = new HashMap<>();
-                roomData.put("roomId", room.getRoomId());
-                roomData.put("availableRooms", room.getAvailableRooms());
-                roomData.put("price", room.getPrice());
-                return roomData;
-            })
-            .collect(Collectors.toList()));
+### 1. 다중 날짜 예약 시 금액 계산 오류
 
-    return ResponseEntity.ok(response);
-}
-```
+예약 페이지에서 사용자가 다중 날짜를 예약할 때 금액 계산이 부정확하게 이루어지는 문제가 발생했습니다.
 
-### 2. 예약 생성 API
+| 문제 | 원인 | 상세 |
+| --- | --- | --- |
+| 다중 날짜 계산 오류 | 날짜 계산 로직 오류 | 체크아웃 날짜를 포함하여 숙박 일수를 계산하면서 실제보다 1박 더 많이 청구됨 |
+| 객실 가격 중복 계산 | 가격 합산 로직 미흡 | 객실 가격 합산 시 중복 계산되어 클라이언트와 서버 간 금액 불일치 발생 |
 
-> [ReservationController.java](project/src/main/java/com/hoteling/project/controller/ReservationController.java)
+<br>
 
-예약 정보 검증 및 생성:
+**Solution**
 
-```java
-@PostMapping
-public ResponseEntity<?> createReservation(
-        @RequestParam("hotelId") Long hotelId,
-        @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-        @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-        @RequestParam("dogType") DogType dogType,
-        @RequestBody ReservationRequestDto reservationForm,
-        Authentication authentication) {
+> [ReservationServiceImplement.java](project/src/main/java/com/hoteling/project/service/implement/ReservationServiceImplement.java) - calculateReservationAmount
 
-    String userId = authentication.getName();
+`ChronoUnit.DAYS.between()`을 활용한 정확한 숙박 일수 계산 및 스트림 API를 활용한 객실 가격 합산 로직 최적화
 
-    ResponseEntity<? super ResponseDto> response = reservationService.createReservation(
-            userId, hotelId, startDate, endDate, dogType, reservationForm);
+<br>
 
-    if (response.getStatusCode().is2xxSuccessful()) {
-        return ResponseEntity.ok(response.getBody());
-    }
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body("예약 생성 중 오류가 발생했습니다.");
-}
-```
+### 2. 결제 완료 후 서버 데이터 전송 오류
 
-### 3. 결제 처리 API
+결제 완료 후 서버로 데이터 전송 과정에서 다음과 같은 기술적 문제가 발생했습니다.
 
-> [PaymentController.java](project/src/main/java/com/hoteling/project/controller/PaymentController.java)
+| 문제 | 원인 | 상세 |
+| --- | --- | --- |
+| CSRF 토큰 인증 실패 | AJAX 요청 시 토큰 누락 | 결제 완료 후 서버로 데이터 전송 과정에서 CSRF 토큰이 헤더에 포함되지 않아 403 에러 발생 |
+| 결제 금액 검증 미흡 | 원자적 처리 부재 | 결제 성공 시 예약 상태 업데이트가 누락되어 동일 예약건에 중복 결제가 가능하게 되는 문제 발생 |
 
-아임포트 결제 검증 및 처리:
+<br>
 
-```java
-@PostMapping("/process")
-public ResponseEntity<?> processPayment(
-        @RequestBody PaymentRequestDto requestDto,
-        Authentication auth) {
+**Solution**
 
-    String userId = auth.getName();
-    ResponseEntity<? super PaymentResponseDto> response =
-        paymentService.processPayment(requestDto);
+> [reservation.js](project/src/main/resources/static/js/reservation.js) - CSRF 토큰 처리
 
-    if (response.getStatusCode().is2xxSuccessful()) {
-        return ResponseEntity.ok(response.getBody());
-    }
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-            .body("결제 처리 중 오류가 발생했습니다.");
-}
-```
+CSRF 토큰을 meta 태그에서 추출하여 AJAX 요청 헤더에 포함
+
+> [PaymentServiceImplement.java](project/src/main/java/com/hoteling/project/service/implement/PaymentServiceImplement.java) - processPayment
+
+결제 금액 검증 로직 추가 및 `@Transactional`을 통한 예약-결제 상태 동기화
 
 <br>
 
