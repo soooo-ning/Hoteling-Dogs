@@ -132,7 +132,7 @@ com.hoteling.project/
 
 <br>
 
-## 주요 구현 코드
+### 주요 구현 코드
 
 ### 1. 객실 가용성 체크 API
 
@@ -244,11 +244,3 @@ public ResponseEntity<?> processPayment(
 | 환경 설정 파일에 민감정보 노출 | 환경변수 관리 미숙      | `.env` 파일 분리, Spring Profiles 활용                       |
 | 예약-결제 플로우 분리          | 트랜잭션 설계 경험 부족 | `@Transactional`로 원자적 처리, 상태 관리(PENDING→CONFIRMED) |
 | 프론트엔드 코드 구조화 부족    | JS 모듈화 개념 부족     | 기능별 파일 분리, 모듈 패턴 적용                             |
-
-<br>
-
-이후 프로젝트에 적용한 것
-
-- **계층 분리**: Controller → Service → Repository 명확한 역할 분리
-- **환경 설정**: application-{profile}.yml로 환경별 설정 분리
-- **예외 처리**: GlobalExceptionHandler로 일관된 에러 응답
