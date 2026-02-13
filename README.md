@@ -38,6 +38,21 @@
 
 <br>
 
+## 📁 Project Structure
+
+```
+com.hoteling.project/
+├── controller/     # API 엔드포인트
+├── service/        # 비즈니스 로직
+├── repository/     # 데이터 접근 (JPA)
+├── domain/
+│   ├── entity/     # JPA 엔티티
+│   └── dto/        # 요청/응답 DTO
+├── config/         # Security, Redis 설정
+└── exception/      # 예외 처리
+```
+<br>
+
 ## 📃 Output
 
 <details>
